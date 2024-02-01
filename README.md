@@ -1,1 +1,1 @@
-This repo hosts our (Marte(llo) team) attempt at making a somewhat workiking and accurate replica of the 4WD ROSITA rover. 
+This repo hosts our ([Marte(llo) team](https://rositascuola.altervista.org/team-martello-%f0%9f%94%a8-liceo-scientifico-l-spallanzani-tivoli-rm/)) attempt at making a somewhat workiking and accurate replica of the 4WD ROSITA rover. 
