@@ -1,7 +1,7 @@
 
 from time import sleep
-import math
-import random
+import numpy as np
+import qreader
 from coppeliasim_zmqremoteapi_client import *
 def setup():
     client = RemoteAPIClient()
@@ -11,8 +11,13 @@ def setup():
     motorHandles[1] = sim.getObject('./front_right_wheel')
     motorHandles[2] = sim.getObject('./back_right_wheel')
     motorHandles[3] = sim.getObject('./back_left_wheel')
-    cam = sim.getObject('./kinect/rgb')
     return motorHandles, sim
+
+def getImage():
+    mH, sim = setup()
+    cam = sim.getObject('./kinect/rgb')
+    img, [resX, resY] = sim.getVisionSensorImg(cam)
+    img = np.frombuffer(img, dtype=np.uint8).reshape(resY, resX, 3)
 
 def stop():
     setSpeed4W(0, 0, 0, 0, 0)
