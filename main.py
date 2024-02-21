@@ -1,7 +1,6 @@
 
 from time import sleep
 import numpy as np
-import qreader
 from coppeliasim_zmqremoteapi_client import *
 def setup():
     client = RemoteAPIClient()
@@ -11,19 +10,25 @@ def setup():
     motorHandles[1] = sim.getObject('./front_right_wheel')
     motorHandles[2] = sim.getObject('./back_right_wheel')
     motorHandles[3] = sim.getObject('./back_left_wheel')
+
     return motorHandles, sim
 
-def getImage():
-    mH, sim = setup()
-    cam = sim.getObject('./kinect/rgb')
-    img, [resX, resY] = sim.getVisionSensorImg(cam)
-    img = np.frombuffer(img, dtype=np.uint8).reshape(resY, resX, 3)
+def pan(rad):
+    if rad < -1 or rad > 1:
+        raise ValueError('value must be between 1 and -1')
+    m, sim = setup()
+    joint = sim.getObject('./Revolute_joint')
+    sim.setJointPosition(joint, rad)
+
+
+def tilt(rad):
+    m, sim = setup()
+    joint = sim.getObject('./joint')
+    sim.setJointPosition(joint, rad)
+
 
 def stop():
     setSpeed4W(0, 0, 0, 0, 0)
-
-
-
 
 def setSpeed4W(fl, fr, bl, br, time):
     fl, fr, bl, br = fl*10, fr*10, bl*10, br*10
@@ -59,4 +64,3 @@ def sinistra(speed, time):
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
 
 
-setup()
