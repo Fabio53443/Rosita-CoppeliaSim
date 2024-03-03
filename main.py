@@ -1,7 +1,9 @@
 
-from time import sleep
+from time import *
+from datetime import datetime
 import numpy as np
 from coppeliasim_zmqremoteapi_client import *
+
 def setup():
     client = RemoteAPIClient()
     sim = client.require('sim')
@@ -12,6 +14,13 @@ def setup():
     motorHandles[3] = sim.getObject('./back_left_wheel')
 
     return motorHandles, sim
+
+def getImage():
+    m, sim = setup()
+    cam = sim.getObject('./kinect/rgb')
+    data, res = sim.getVisionSensorImg(cam, 1)
+    buffer = sim.saveImage(data, res, 2, f'/home/fabio53443/Desktop/Rosita-CoppeliaSim/{str(time()).split(".")[0]}.png', 70)
+    return buffer
 
 def pan(rad):
     if rad < -1 or rad > 1:
@@ -25,6 +34,7 @@ def tilt(rad):
     m, sim = setup()
     joint = sim.getObject('./joint')
     sim.setJointPosition(joint, rad)
+
 
 
 def stop():
@@ -63,4 +73,6 @@ def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
 
+
+getImage()
 
