@@ -1,9 +1,11 @@
-
 from time import *
 from datetime import datetime
 import numpy as np
+from qreader import QReader
 from coppeliasim_zmqremoteapi_client import *
-import sys, os 
+import sys 
+
+
 def setup():
     client = RemoteAPIClient()
     sim = client.require('sim')
@@ -18,9 +20,16 @@ def setup():
 def getImage():
     m, sim = setup()
     cam = sim.getObject('./kinect/rgb')
-    data, res = sim.getVisionSensorImg(cam, 1)
-    sim.saveImage(data, res, 1, f'{sys.argv[0].split("main.py")[0]}{str(time()).split(".")[0]}.png', 20)
-    print("hello")
+    data, res = sim.getVisionSensorImg(cam)
+    a = sim.saveImage(data, res, 0, ".png", 10)
+    return 0
+
+def scanTag(path):
+    #print("trying to decode qrcode")
+    #qreader = QReader()
+    #decoded_text = qreader.detect_and_decode(image=path)
+    #print(decoded_text)
+    return 0
 
 def pan(rad):
     if rad < -1 or rad > 1:
@@ -73,5 +82,4 @@ def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
 
-print(sys.argv[0].split("main.py")[0])
-
+scanTag(getImage())
