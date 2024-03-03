@@ -3,7 +3,7 @@ from time import *
 from datetime import datetime
 import numpy as np
 from coppeliasim_zmqremoteapi_client import *
-
+import sys, os 
 def setup():
     client = RemoteAPIClient()
     sim = client.require('sim')
@@ -19,8 +19,8 @@ def getImage():
     m, sim = setup()
     cam = sim.getObject('./kinect/rgb')
     data, res = sim.getVisionSensorImg(cam, 1)
-    buffer = sim.saveImage(data, res, 2, f'/home/fabio53443/Desktop/Rosita-CoppeliaSim/{str(time()).split(".")[0]}.png', 70)
-    return buffer
+    sim.saveImage(data, res, 1, f'{sys.argv[0].split("main.py")[0]}{str(time()).split(".")[0]}.png', 20)
+    print("hello")
 
 def pan(rad):
     if rad < -1 or rad > 1:
@@ -73,6 +73,5 @@ def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
 
-
-getImage()
+print(sys.argv[0].split("main.py")[0])
 
