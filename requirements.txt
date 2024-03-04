@@ -1,1 +1,3 @@
- 
+numpy
+qreader
+coppeliasim_zmqremoteapi_client
