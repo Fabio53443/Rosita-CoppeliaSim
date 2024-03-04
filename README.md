@@ -8,3 +8,6 @@ This repo hosts our ([Marte(llo) team](https://rositascuola.altervista.org/team-
 1. Install CoppeliaSim from [here](https://www.coppeliarobotics.com/)
 2. Clone this repo
 3. Install dipendencies (`pip -r requirements.txt`)
+
+## Development
+The reccomanded way to develop this project is by using **venv**s. This can be done, in Pycharm, by cloning the repository and by answering "yes" in the venv prompt. 
