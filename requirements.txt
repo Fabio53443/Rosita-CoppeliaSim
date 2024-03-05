@@ -1,3 +1,4 @@
 numpy
 qreader
 coppeliasim_zmqremoteapi_client
+opencv-python
