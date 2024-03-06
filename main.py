@@ -23,7 +23,6 @@ def getImage():
     sim.saveImage(data, res, 0, path, 10)
     return path
 
-
 def scanTag(path):
     print("trying to decode qrcode")
     qreader = QReader()
@@ -31,19 +30,21 @@ def scanTag(path):
     decoded_text = qreader.detect_and_decode(image=image)
     return decoded_text
 
-def pan(rad):
+def moveJoint(rad, obj):
     if rad < -1 or rad > 1:
-        raise ValueError('value must be between 1 and -1')
+        print('value must be between 1 and -1')
+        return 0
     m, sim = setup()
-    joint = sim.getObject('./Revolute_joint')
-    sim.setJointPosition(joint, rad)
+    joint = sim.getObject(obj)
+    new = sim.getJointPosition(joint) - rad
+    sim.setJointPosition(joint, new)
+    return new
 
+def pan(rad):
+    moveJoint(rad, './Revolute_joint')
 
-def tilt(rad):
-    m, sim = setup()
-    joint = sim.getObject('./joint')
-    new = sim.getJointPosition - rad
-    sim.setJointPosition(joint, rad)
+def pan(rad):
+    moveJoint(rad, './joint')
 
 def stop():
     setSpeed4W(0, 0, 0, 0, 0)
