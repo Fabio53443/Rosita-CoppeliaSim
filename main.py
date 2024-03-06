@@ -42,9 +42,8 @@ def pan(rad):
 def tilt(rad):
     m, sim = setup()
     joint = sim.getObject('./joint')
+    new = sim.getJointPosition - rad
     sim.setJointPosition(joint, rad)
-
-
 
 def stop():
     setSpeed4W(0, 0, 0, 0, 0)
