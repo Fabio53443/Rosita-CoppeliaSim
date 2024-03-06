@@ -8,12 +8,10 @@ from cv2 import COLOR_BGR2RGB, imread, cvtColor
 def setup():
     client = RemoteAPIClient()
     sim = client.require('sim')
-    motorHandles = [-1, -1, -1, -1]
-    motorHandles[0] = sim.getObject('./front_left_wheel')
-    motorHandles[1] = sim.getObject('./front_right_wheel')
-    motorHandles[2] = sim.getObject('./back_right_wheel')
-    motorHandles[3] = sim.getObject('./back_left_wheel')
-
+    motorHandles = [ ]
+    motorPath = ['./front_left_wheel', './front_right_wheel', './back_right_wheel', './back_left_wheel']
+    for i in range(0, 4):
+        motorHandles.append(sim.getObject(motorPath[i]))
     return motorHandles, sim
 
 def getImage():
@@ -52,17 +50,15 @@ def stop():
     setSpeed4W(0, 0, 0, 0, 0)
 
 def setSpeed4W(fl, fr, bl, br, time):
-    fl, fr, bl, br = fl*10, fr*10, bl*10, br*10
+    vel = [fl*10, -fr*10, -br*10, -bl*10]
     m, sim = setup()
-    sim.setJointTargetVelocity(m[0], fl)
-    sim.setJointTargetVelocity(m[1], -fr)
-    sim.setJointTargetVelocity(m[2], -br)
-    sim.setJointTargetVelocity(m[3], bl)
+    for i in range(0, 4):
+        sim.setJointTargetVelocity(m[i], vel[i])
+
     sleep(time)
-    sim.setJointTargetVelocity(m[0], 0)
-    sim.setJointTargetVelocity(m[1], 0)
-    sim.setJointTargetVelocity(m[2], 0)
-    sim.setJointTargetVelocity(m[3], 0)
+
+    for i in range(0, 4): 
+        sim.setJointTargetVelocity(m[i], 0)
 
 
 
@@ -83,8 +79,5 @@ def destra(speed, time):
 def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
-tilt(0.1111)
 
 
-for i in range(0, 4):
-    print(scanTag(getImage()))
