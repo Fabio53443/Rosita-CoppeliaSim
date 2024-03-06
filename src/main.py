@@ -1,4 +1,5 @@
 from time import *
+import datetime
 from qreader import QReader
 from coppeliasim_zmqremoteapi_client import *
 import sys
@@ -19,7 +20,7 @@ def getImage():
     m, sim = setup()
     cam = sim.getObject('./kinect/rgb')
     data, res = sim.getVisionSensorImg(cam)
-    path = f'{sys.argv[0].split("main.py")[0]}{str(time()).split(".")[0]}.png'
+    path = f'{sys.argv[0].split("src/main.py")[0]}/images/{datetime.datetime.now().replace(microsecond=0).isoformat()}.png'
     sim.saveImage(data, res, 0, path, 10)
     return path
 
@@ -79,3 +80,4 @@ def destra(speed, time):
 def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
+
