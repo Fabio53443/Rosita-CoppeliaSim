@@ -1,10 +1,8 @@
 from time import *
-from datetime import datetime
-import numpy as np
 from qreader import QReader
 from coppeliasim_zmqremoteapi_client import *
 import sys
-import cv2
+from cv2 import COLOR_BGR2RGB, imread, cvtColor
 
 
 def setup():
@@ -19,6 +17,7 @@ def setup():
     return motorHandles, sim
 
 def getImage():
+    print("-- br br mars delay br br")
     m, sim = setup()
     cam = sim.getObject('./kinect/rgb')
     data, res = sim.getVisionSensorImg(cam)
@@ -30,7 +29,7 @@ def getImage():
 def scanTag(path):
     print("trying to decode qrcode")
     qreader = QReader()
-    image = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB) # use https://genqrcode.com/generator/3d to create 3d tags
+    image = cvtColor(imread(path), COLOR_BGR2RGB) # use https://genqrcode.com/generator/3d to create 3d tags
     decoded_text = qreader.detect_and_decode(image=image)
     return decoded_text
 
@@ -85,4 +84,7 @@ def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
 tilt(0.1111)
-print(scanTag(getImage()))
+
+
+for i in range(0, 4):
+    print(scanTag(getImage()))
