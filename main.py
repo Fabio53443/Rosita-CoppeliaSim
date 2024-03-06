@@ -41,10 +41,10 @@ def moveJoint(rad, obj):
     return new
 
 def pan(rad):
-    moveJoint(rad, './Revolute_joint')
+    moveJoint(rad, './panJoint')
 
-def pan(rad):
-    moveJoint(rad, './joint')
+def tilt(rad):
+    moveJoint(rad, './tiltJoint')
 
 def stop():
     setSpeed4W(0, 0, 0, 0, 0)
@@ -79,5 +79,3 @@ def destra(speed, time):
 def sinistra(speed, time):
     sxSpeed = -1 * speed
     setSpeed4W(sxSpeed, speed, sxSpeed, speed, time)
-
-
