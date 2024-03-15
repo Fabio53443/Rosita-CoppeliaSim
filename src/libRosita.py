@@ -1,6 +1,6 @@
 from time import *
 import datetime
-#from qreader import QReader
+from qreader import QReader # DISABLE IF NOT NEEDED, causes significant slowdown
 from coppeliasim_zmqremoteapi_client import *
 import sys
 from cv2 import COLOR_BGR2RGB, imread, cvtColor
