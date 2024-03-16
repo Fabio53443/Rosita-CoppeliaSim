@@ -1,3 +1,5 @@
+![image](https://github.com/Fabio53443/Rosita-CoppeliaSim/assets/64356481/55c4b909-c2ba-4c16-8499-eed5cb06cb22)
+
 # ROSITA in CoppeliaSim
 
 ## What is this?
