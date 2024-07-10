@@ -10,7 +10,7 @@ This repo hosts our ([Marte(llo) team](https://rositascuola.altervista.org/team-
 1. Install CoppeliaSim from [here](https://www.coppeliarobotics.com/)
 2. Clone this repo
 3. Install dipendencies (`pip -r requirements.txt`)
-# IMPORTANT: Apply patch to Coppelia's remote API
+# (for 4.6.x and below) IMPORTANT: Apply patch to Coppelia's remote API
 append to `<installFolder>/addOns/ZMQ remote API server.lua` the following **before** opening Coppelia
 ```
 sim.saveImage = wrap(sim.saveImage, function(origFunc)
